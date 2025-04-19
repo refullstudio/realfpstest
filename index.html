@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FPS Counter</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #0f0;
+      font-family: monospace;
+      margin: 0;
+      overflow: hidden;
+    }
+    #fps {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 24px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 8px 12px;
+      border: 1px solid #0f0;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="fps">FPS: 0</div>
+
+  <script>
+    const fpsDisplay = document.getElementById("fps");
+    let frames = 0;
+    let lastTime = performance.now();
+
+    function loop(now) {
+      frames++;
+      const delta = now - lastTime;
+
+      if (delta >= 1000) {
+        const fps = Math.round((frames * 1000) / delta);
+        fpsDisplay.textContent = `FPS: ${fps}`;
+        frames = 0;
+        lastTime = now;
+      }
+
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>
